@@ -13,6 +13,16 @@ use Auth;
 use Image;
 class PostController extends Controller
 {
+
+        //__Index Method_//
+        function index(){
+            $posts=Post::all();
+            return view('admin.post.index',compact('posts'));
+
+            
+        }
+
+
     //__ Create Post__//
     function create() {
       
@@ -51,8 +61,8 @@ $data=array();
 
                  if ($photo) {
                  $photoname=$slug.'.'.$photo->getClientOriginalExtension();
+                // Image::make($photo)->resize(600,400)->save('public/media/'.$photoname);
                  $data['image']='public/media/'.$photoname;
-                 //Image::make($photo)->resize(600,400)->save('public/media/'.$photoname);
                  DB::table('posts')->insert($data);
                  return redirect()->back()->with('message','Post Created');
 
